@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.5
 ARG VERSION=8.92.14-r0
 ENV MAJOR=8
 
