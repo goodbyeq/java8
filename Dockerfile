@@ -1,5 +1,5 @@
 FROM alpine:3.5
-ARG VERSION=8.92.14-r0
+ARG VERSION=8.121.13-r0
 ENV MAJOR=8
 
 RUN apk update --purge \
