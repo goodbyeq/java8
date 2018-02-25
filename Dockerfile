@@ -1,19 +1,19 @@
-FROM alpine:3.5
-ARG VERSION=8.121.13-r0
-ENV MAJOR=8
+From amazonlinux:latest
+MAINTAINER goodbyeQ
+USER root
 
-RUN apk update --purge \
-&& apk add curl \
-&& apk add unzip=6.0-r2 \
-&& apk add openjdk8-jre-base=8.121.13-r0
+ENV JAVA_HOME /usr/lib/jvm/jre-1.8.0-openjdk.x86_64
 
-RUN curl -s -k -L -C - -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/${MAJOR}/jce_policy-${MAJOR}.zip > /tmp/jce_policy-${MAJOR}.zip \
-&& unzip -d /tmp/ /tmp/jce_policy-${MAJOR}.zip \
-&& rm -vf /usr/lib/jvm/java-1.${MAJOR}-openjdk/jre/lib/security/*.jar \
-&& cp -vf /tmp/UnlimitedJCEPolicyJDK${MAJOR}/*.jar /usr/lib/jvm/java-1.${MAJOR}-openjdk/jre/lib/security \
-&& rm -rf /tmp/*
+RUN  yum -y update && \
+     yum -y install python27-pip python27-devel && \
+     pip install --upgrade pip && \
+     pip install dumb-init && \
+     chmod 755 /usr/local/bin/dumb-init && \
+     ln -s /usr/bin/pip /usr/local/bin/pip && \
+     chown root:root /usr/local/bin/* && \
+     chmod 755 /usr/local/bin/*
 
-RUN apk del --force --purge unzip \
-&& apk del --force --purge curl
-
-CMD ["java","-version"]
+# Install java
+RUN yum -y install shadow-utils java-1.8.0-openjdk appdynamics-javaagent && \
+    yum clean all && \
+    rm -rf /var/log/*
