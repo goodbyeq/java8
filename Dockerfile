@@ -9,7 +9,6 @@ RUN  yum -y update && \
      pip install --upgrade pip && \
      pip install dumb-init && \
      chmod 755 /usr/local/bin/dumb-init && \
-     ln -s /usr/bin/pip /usr/local/bin/pip && \
      chown root:root /usr/local/bin/* && \
      chmod 755 /usr/local/bin/*
 
